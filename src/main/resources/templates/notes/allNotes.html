@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5 mb-4">Note List</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="notes">
+                <div class="note" th:each="note : ${notes}">
+                    <div class="note-info mb-3">
+                        <span class="note-id fw-bold">ID: <span th:text="${note.id}"></span></span><br>
+                        <span class="note-title fw-bold">Title: <span th:text="${note.title}"></span></span><br>
+                        <span class="note-content fw-bold">Content: <span th:text="${note.content}"></span></span>
+                    </div>
+
+                    <form action="/note/edit" method="get">
+                        <input type="hidden" name="id" th:value="${note.id}">
+                        <button type="submit" class="btn btn-primary me-2">Edit</button>
+                    </form>
+
+                    <form action="/note/delete" method="post">
+                        <input type="hidden" name="id" th:value="${note.id}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <form action="/note/create" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" name="title" id="title" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content:</label>
+                    <textarea name="content" id="content" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Create Note</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
